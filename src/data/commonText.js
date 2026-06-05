@@ -42,9 +42,9 @@ export const FOOTER = {
       items: [
         { label: '전화문의', href: 'tel:' },
         { label: '이메일 문의', href: 'mailto:contact@weflowlab.kr' },
-        { label: '카카오 채널 문의', href: '#' },
-        { label: '인스타 문의', href: '#' },
-        { label: '블로그', href: '#' },
+        { label: '카카오 채널 문의', href: 'http://pf.kakao.com/_xntCbX' },
+        { label: '인스타 문의', href: 'https://www.instagram.com/weflowlab.kr?igsh=b2c1eTdwbHo2bWRt' },
+        { label: '블로그', href: 'https://m.blog.naver.com/weflowlab' },
       ],
     },
   },
@@ -52,8 +52,8 @@ export const FOOTER = {
 
 export const BOTTOM_BAR = [
   { label: '24시간 상담', href: '#', icon: '🕐' },
-  { label: '카카오톡 문의', href: '#', icon: '💬' },
-  { label: '블로그', href: '#', icon: '📝' },
+  { label: '카카오톡 문의', href: 'http://pf.kakao.com/_xntCbX', icon: '💬' },
+  { label: '블로그', href: 'https://m.blog.naver.com/weflowlab', icon: '📝' },
   { label: '무료진단', href: '#', icon: '✅', modal: true },
 ];
 

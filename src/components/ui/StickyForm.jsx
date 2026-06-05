@@ -23,9 +23,35 @@ export default function StickyForm({ id }) {
     }));
   }
 
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   if (!form.agree) return alert('개인정보 수집 및 이용에 동의해 주세요.');
+  //   setSubmitted(true);
+  // }
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (!form.agree) return alert('개인정보 수집 및 이용에 동의해 주세요.');
+
+    if (!form.agree) {
+      alert('개인정보 수집 및 이용에 동의해 주세요.');
+      return;
+    }
+
+    const newInquiry = {
+      id: Date.now(),
+      name: form.name,
+      phone: form.phone,
+      type: form.type,
+      industry: form.industry,
+      request: form.request,
+      status: '대기',
+      createdAt: new Date().toISOString(),
+    };
+
+    const prevInquiries = JSON.parse(localStorage.getItem('weflow_inquiries') || '[]');
+    const nextInquiries = [newInquiry, ...prevInquiries];
+
+    localStorage.setItem('weflow_inquiries', JSON.stringify(nextInquiries));
     setSubmitted(true);
   }
 

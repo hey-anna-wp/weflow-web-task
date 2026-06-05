@@ -6,7 +6,12 @@ import { STICKY_FORM } from '@/data/commonText';
 export default function FormModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState({
-    name: '', phone: '', type: '', industry: '', request: '', agree: false,
+    name: '',
+    phone: '',
+    type: '',
+    industry: '',
+    request: '',
+    agree: false,
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -34,7 +39,9 @@ export default function FormModal() {
 
   useEffect(() => {
     if (!isOpen) return;
-    const handleEsc = (e) => { if (e.key === 'Escape') close(); };
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') close();
+    };
     window.addEventListener('keydown', handleEsc);
     document.body.style.overflow = 'hidden';
     return () => {
@@ -53,19 +60,42 @@ export default function FormModal() {
     setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   }
 
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   if (!form.agree) return alert('개인정보 수집 및 상담 동의에 체크해 주세요.');
+  //   setSubmitted(true);
+  // }
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (!form.agree) return alert('개인정보 수집 및 상담 동의에 체크해 주세요.');
+
+    if (!form.agree) {
+      alert('개인정보 수집 및 상담 동의에 체크해 주세요.');
+      return;
+    }
+
+    const newInquiry = {
+      id: Date.now(),
+      name: form.name,
+      phone: form.phone,
+      type: form.type,
+      industry: form.industry,
+      request: form.request,
+      status: '대기',
+      createdAt: new Date().toISOString(),
+    };
+
+    const prevInquiries = JSON.parse(localStorage.getItem('weflow_inquiries') || '[]');
+    const nextInquiries = [newInquiry, ...prevInquiries];
+
+    localStorage.setItem('weflow_inquiries', JSON.stringify(nextInquiries));
     setSubmitted(true);
   }
 
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      onClick={close}
-    >
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={close}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
       <div
@@ -76,11 +106,7 @@ export default function FormModal() {
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 h-16 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
 
         {/* 닫기 버튼 — 모달 전체 커버 (z-0) */}
-        <button
-          onClick={close}
-          className="absolute inset-0 w-full h-full rounded-2xl z-0"
-          aria-label="닫기"
-        />
+        <button onClick={close} className="absolute inset-0 w-full h-full rounded-2xl z-0" aria-label="닫기" />
 
         {/* X 아이콘 버튼 — 클릭 가능 (z-20) */}
         <button
@@ -110,8 +136,12 @@ export default function FormModal() {
               <div>
                 <label className="block text-xs text-slate-400 mb-1">{STICKY_FORM.fields.name.label}</label>
                 <input
-                  type="text" name="name" value={form.name} onChange={handleChange}
-                  placeholder={STICKY_FORM.fields.name.placeholder} required
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder={STICKY_FORM.fields.name.placeholder}
+                  required
                   className="w-full bg-slate-800/60 border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500"
                 />
               </div>
@@ -119,8 +149,12 @@ export default function FormModal() {
               <div>
                 <label className="block text-xs text-slate-400 mb-1">{STICKY_FORM.fields.phone.label}</label>
                 <input
-                  type="tel" name="phone" value={form.phone} onChange={handleChange}
-                  placeholder={STICKY_FORM.fields.phone.placeholder} required
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder={STICKY_FORM.fields.phone.placeholder}
+                  required
                   className="w-full bg-slate-800/60 border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500"
                 />
               </div>
@@ -128,12 +162,17 @@ export default function FormModal() {
               <div>
                 <label className="block text-xs text-slate-400 mb-1">{STICKY_FORM.fields.type.label}</label>
                 <select
-                  name="type" value={form.type} onChange={handleChange} required
+                  name="type"
+                  value={form.type}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-slate-800/60 border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white"
                 >
                   <option value="">선택해주세요</option>
                   {STICKY_FORM.fields.type.options.map((opt) => (
-                    <option key={opt} value={opt}>{opt}</option>
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -141,8 +180,12 @@ export default function FormModal() {
               <div>
                 <label className="block text-xs text-slate-400 mb-1">{STICKY_FORM.fields.industry.label}</label>
                 <input
-                  type="text" name="industry" value={form.industry} onChange={handleChange}
-                  placeholder={STICKY_FORM.fields.industry.placeholder} required
+                  type="text"
+                  name="industry"
+                  value={form.industry}
+                  onChange={handleChange}
+                  placeholder={STICKY_FORM.fields.industry.placeholder}
+                  required
                   className="w-full bg-slate-800/60 border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500"
                 />
               </div>
@@ -150,24 +193,27 @@ export default function FormModal() {
               <div>
                 <label className="block text-xs text-slate-400 mb-1">{STICKY_FORM.fields.request.label}</label>
                 <textarea
-                  name="request" value={form.request} onChange={handleChange}
-                  placeholder={STICKY_FORM.fields.request.placeholder} rows={3}
+                  name="request"
+                  value={form.request}
+                  onChange={handleChange}
+                  placeholder={STICKY_FORM.fields.request.placeholder}
+                  rows={3}
                   className="w-full bg-slate-800/60 border border-white/[0.08] rounded-lg px-3 py-2.5 text-sm text-white placeholder-slate-500 resize-none"
                 />
               </div>
 
               <label className="flex items-start gap-2 cursor-pointer">
                 <input
-                  type="checkbox" name="agree" checked={form.agree} onChange={handleChange}
+                  type="checkbox"
+                  name="agree"
+                  checked={form.agree}
+                  onChange={handleChange}
                   className="mt-0.5 accent-blue-500"
                 />
                 <span className="text-xs text-slate-400">{STICKY_FORM.fields.agree}</span>
               </label>
 
-              <button
-                type="submit"
-                className="w-full gradient-blue text-white font-bold py-3 rounded-xl text-sm mt-2"
-              >
+              <button type="submit" className="w-full gradient-blue text-white font-bold py-3 rounded-xl text-sm mt-2">
                 {STICKY_FORM.submit}
               </button>
             </form>
