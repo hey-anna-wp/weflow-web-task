@@ -4,50 +4,80 @@ import { PRODUCTION_PLANS, PRICING_NOTICE } from '@/data/pricingText';
 
 export default function ProductionPlansSection() {
   return (
-    <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-64 bg-cyan-400/7 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-600/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+      <div className="grid grid-cols-1 gap-6 max-w-xl mx-auto">
         {PRODUCTION_PLANS.plans.map((plan) => {
-          const isTop = plan.popular;
+          const isGrow = plan.tier === 'GROW';
+          const isMaster = plan.tier === 'MASTER';
           const duration = plan.checklist.find((c) => c.item.includes('빠른 제작'))?.item;
 
           return (
             <div
               key={plan.name}
               className={`relative flex flex-col rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${
-                isTop
-                  ? 'bg-slate-900/60 border border-blue-500/40 shadow-xl shadow-blue-500/10 hover:border-blue-400/60 hover:shadow-blue-500/25'
-                  : 'bg-slate-900/40 border border-slate-800/60 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10'
+                isMaster
+                  ? 'bg-gradient-to-b from-amber-950/40 to-slate-900/60 backdrop-blur-sm border border-amber-500/40 shadow-xl shadow-amber-500/10 hover:shadow-amber-500/20'
+                  : isGrow
+                    ? 'bg-slate-900/60 border border-blue-500/40 shadow-xl shadow-blue-500/10 hover:border-blue-400/60 hover:shadow-blue-500/25'
+                    : 'bg-slate-900/40 border border-slate-800/60 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/10'
               }`}
             >
               {/* Top glow line */}
-              {isTop && (
+              {(isGrow || isMaster) && (
                 <>
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
-                  <div className="absolute inset-x-8 top-0 h-[6px] bg-cyan-400/40 blur-md" />
+                  <div
+                    className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${
+                      isMaster ? 'via-amber-400' : 'via-cyan-400'
+                    } to-transparent`}
+                  />
+                  <div
+                    className={`absolute inset-x-8 top-0 h-[6px] blur-md ${
+                      isMaster ? 'bg-amber-400/40' : 'bg-cyan-400/40'
+                    }`}
+                  />
                 </>
               )}
 
-              {/* 추천 badge */}
-              {isTop && (
-                <span className="absolute top-4 right-4 px-2.5 py-1 rounded-full text-xs font-bold text-white gradient-blue">
-                  추천
+              {/* Badge */}
+              {isGrow && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold text-white gradient-blue">
+                  인기
+                </span>
+              )}
+
+              {isMaster && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold text-amber-900 bg-amber-400">
+                  👑 프리미엄
                 </span>
               )}
 
               {/* Tier badge */}
-              <span className="inline-block self-start mb-3 px-2.5 py-0.5 rounded-md bg-blue-900/40 border border-blue-800/50 text-blue-400 text-[10px] font-bold tracking-wider">
+              <span
+                className={`inline-block self-start mb-3 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider border ${
+                  isMaster
+                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                    : 'bg-blue-900/40 border-blue-800/50 text-blue-400'
+                }`}
+              >
                 {plan.tier}
               </span>
 
               {/* Plan name */}
-              <h3 className="text-lg font-black text-white mb-2.5">{plan.name}</h3>
+              <h3 className={`text-lg font-black mb-2.5 ${isMaster ? 'text-amber-400' : 'text-white'}`}>{plan.name}</h3>
 
               {/* Duration badge */}
               {duration && (
-                <div className="inline-flex items-center gap-1.5 self-start mb-5 px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-semibold">
-                  <Zap size={11} className="text-blue-400" />
+                <div
+                  className={`inline-flex items-center gap-1.5 self-start mb-5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                    isMaster
+                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                      : 'bg-blue-500/10 border-blue-500/20 text-blue-300'
+                  }`}
+                >
+                  <Zap size={11} className={isMaster ? 'text-amber-400' : 'text-blue-400'} />
                   {duration}
                 </div>
               )}
@@ -57,11 +87,17 @@ export default function ProductionPlansSection() {
                 {plan.originalPrice && (
                   <p className="text-sm text-slate-500 line-through decoration-red-400 mb-1">{plan.originalPrice}</p>
                 )}
+
                 <div className="flex items-end gap-1">
-                  <span className={`font-black leading-none ${isTop ? 'text-4xl text-blue-300' : 'text-3xl text-white'}`}>
+                  <span
+                    className={`font-black leading-none ${
+                      isMaster ? 'text-4xl text-amber-400' : isGrow ? 'text-4xl text-blue-300' : 'text-3xl text-white'
+                    }`}
+                  >
                     {plan.price}
                   </span>
                 </div>
+
                 <p className="text-xs text-slate-500 mt-1">VAT 포함</p>
               </div>
 
@@ -69,7 +105,11 @@ export default function ProductionPlansSection() {
               <ul className="space-y-2.5 flex-1 mb-6">
                 {plan.checklist.map((item) => (
                   <li key={item.item} className="flex items-start gap-2.5">
-                    <span className={`mt-0.5 font-bold text-sm flex-shrink-0 ${item.ok ? 'text-blue-400' : 'text-slate-600'}`}>
+                    <span
+                      className={`mt-0.5 font-bold text-sm flex-shrink-0 ${
+                        item.ok ? (isMaster ? 'text-amber-400' : 'text-blue-400') : 'text-slate-600'
+                      }`}
+                    >
                       {item.ok ? '✓' : '✗'}
                     </span>
                     <span className={`text-sm ${item.ok ? 'text-slate-300' : 'text-slate-600'}`}>{item.item}</span>
@@ -80,9 +120,11 @@ export default function ProductionPlansSection() {
               <Link
                 href="/reservation"
                 className={`block text-center py-3 rounded-xl font-bold text-sm transition-all ${
-                  isTop
-                    ? 'gradient-blue text-white'
-                    : 'bg-slate-800/60 border border-white/[0.08] text-white hover:border-blue-500/40'
+                  isMaster
+                    ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-amber-950 shadow-lg shadow-amber-500/20'
+                    : isGrow
+                      ? 'gradient-blue text-white'
+                      : 'bg-slate-800/60 border border-white/[0.08] text-white hover:border-blue-500/40'
                 }`}
               >
                 신청하기

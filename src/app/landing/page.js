@@ -8,6 +8,9 @@ import ServiceProcessSection from '@/features/services_page/sections/ServiceProc
 import LandingProductionPlansSection from '@/features/landing_page/sections/LandingProductionPlansSection';
 import LandingCarePlansSection from '@/features/landing_page/sections/LandingCarePlansSection';
 import LandingAdPlansSection from '@/features/landing_page/sections/LandingAdPlansSection';
+import CarePlansSection from '@/features/pricing_page/sections/CarePlansSection';
+import AdPlansSection from '@/features/pricing_page/sections/AdPlansSection';
+import ProductionPlansSection from '@/features/pricing_page/sections/ProductionPlansSection';
 import { LANDING_NOTICE } from '@/data/landingText';
 
 export const metadata = {
@@ -43,15 +46,16 @@ export default function LandingPage() {
                 <span className="px-5 py-1.5 rounded-full border border-blue-800/50 bg-blue-900/30 text-blue-400 text-xs tracking-[0.3em] font-semibold uppercase">
                   P R I C I N G
                 </span>
-                <h2 className="text-3xl sm:text-4xl font-black text-white">
-                  제작 플랜 &amp; 가격 안내
-                </h2>
+                <h2 className="text-3xl sm:text-4xl font-black text-white">제작 플랜 &amp; 가격 안내</h2>
                 <p className="text-slate-400 text-sm">비즈니스 목적에 맞는 플랜을 선택하세요</p>
               </div>
             </div>
-            <LandingProductionPlansSection />
+            {/* <LandingProductionPlansSection />
             <LandingCarePlansSection />
-            <LandingAdPlansSection />
+            <LandingAdPlansSection /> */}
+            <ProductionPlansSection />
+            <CarePlansSection />
+            <AdPlansSection />
           </div>
 
           {/* 고객 후기 슬라이더 */}
@@ -72,7 +76,6 @@ export default function LandingPage() {
           </div>
         </aside>
       </div>
-
     </div>
   );
 }

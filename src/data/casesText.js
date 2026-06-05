@@ -7,6 +7,7 @@ export const CASES_PAGE = {
     { title: '필라테스', category: '피트니스', blogHref: '#', img: '/cases_필라테스.jpg' },
     { title: '헬스장', category: '피트니스', blogHref: '#', img: '/cases_헬스장.jpg' },
     { title: '보험 설계', category: '금융', blogHref: '#', img: '/cases_보험설계.jpg' },
+    { title: '카센터', category: '자동차', blogHref: '#', img: '/cases_카센터.jpg' },
     { title: '법률 사무소', category: '전문직', blogHref: '#', img: '/cases_법률사무소.jpg' },
     { title: '세무사 사무소', category: '전문직', blogHref: '#', img: '/cases_세무사사무소.jpg' },
     { title: '공인중개사', category: '부동산', blogHref: '#', img: '/cases_공인중개사.jpg' },

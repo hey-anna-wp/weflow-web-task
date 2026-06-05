@@ -4,7 +4,7 @@ import { CASES_SECTION } from '@/data/homeText';
 import { CASES_PAGE } from '@/data/casesText';
 
 export default function CasesSection() {
-  const cards = CASES_PAGE.cases.slice(0, 4);
+  const cards = CASES_PAGE.cases.slice(0, 5);
 
   return (
     <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -26,7 +26,7 @@ export default function CasesSection() {
             </p>
           </div>
           <Link
-            href="/reservation"
+            href="/cases"
             className="inline-flex items-center px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg shadow-blue-500/20 self-start"
           >
             {CASES_SECTION.moreButton}
@@ -34,7 +34,7 @@ export default function CasesSection() {
         </div>
 
         {/* 우측: 4개 카드 고정 */}
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {cards.map((item) => {
             const badge = item.title.charAt(0);
             return (

@@ -57,9 +57,9 @@ export const PROCESS = {
     title: '제작진행과정',
     sub: '배포 전 제작부터 모든 과정을 WEFLOW가 함께해 드립니다.',
     steps: [
-      { label: '고객 상담', icon: 'user' },
-      { label: '협의 후 제작', icon: 'tag' },
-      { label: '3~7일 완료', icon: 'check' },
+      { label: '고객 의뢰', icon: 'user' },
+      { label: '접수 후 제작', icon: 'tag' },
+      { label: '3~7일 배송완료', icon: 'check' },
       { label: '광고 및 운영 사후 관리', icon: 'trending' },
     ],
   },
@@ -80,7 +80,7 @@ export const PROCESS = {
 export const CASES_SECTION = {
   heading: ['다양한 업종이', '성공 사례를 확인하세요.'],
   sub: '어디서도 볼 수 없는 업종별 전환 최적화 사례를 직접 확인하세요.',
-  moreButton: '살펴보기 →',
+  moreButton: '더보기 →',
   items: [
     { title: 'PT 트레이닝센터', category: 'PT헬스' },
     { title: '필라테스 스튜디오', category: '필라테스' },
@@ -96,9 +96,9 @@ export const DIAGNOSIS = {
   subtitle: '지금 바로 무료로 진단받고, 사이트의 숨겨진 잠재력을 발견하세요',
   items: [
     { main: '문의 구조 진단', detail: '잠재 고객의 문의 이탈 최소화 전략 설계' },
-    { main: '콘텐츠 및 레이아웃', detail: '브랜드와 서비스를 강조하는 화면 구성 제안' },
-    { main: 'SEO 및 속도 개선', detail: '네이버/구글 검색 최적화 및 로딩 속도 향상 가이드' },
-    { main: '사용자 경험(UX) 개선', detail: '고객이 정보를 얻고 결제까지 원활하게 이어지는 흐름 설계' },
+    { main: '디자인 · 사용성 점검', detail: '브랜드와 서비스를 강조하는 화면 구성 및 사용성 점검' },
+    { main: '검색 노출 분석', detail: '네이버/구글 검색 노출을 위한 기본 요소 분석' },
+    { main: '문의 개선 제안', detail: '문의로 이어지는 버튼 위치와 동선 개선 제안' },
   ],
   ctaButton: '무료진단 후 견적 받기',
 };

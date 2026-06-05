@@ -22,6 +22,8 @@ export default function HeroSection() {
 
           {/* ── 좌측: 텍스트 콘텐츠 ── */}
           <div className="flex-1 py-8 lg:py-16">
+            <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-3 max-w-lg">{HERO.badge}</p>
+
             <h1 className="text-5xl sm:text-6xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tight mb-6 bg-gradient-to-br from-white via-blue-100 to-violet-300 bg-clip-text text-transparent">
               {HERO.headline[0]}
               <br />

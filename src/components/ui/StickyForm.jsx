@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AlignLeft } from 'lucide-react';
+import { AlignLeft, ChevronDown } from 'lucide-react';
 import { STICKY_FORM } from '@/data/commonText';
 
 export default function StickyForm({ id }) {
@@ -17,7 +17,10 @@ export default function StickyForm({ id }) {
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   }
 
   function handleSubmit(e) {
@@ -37,12 +40,15 @@ export default function StickyForm({ id }) {
   }
 
   const inputClass =
-    'w-full bg-[#0d1220] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 transition-colors';
+    'w-full bg-[#0d1220] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 transition-colors';
 
   return (
-    <div id={id} className="bg-[#080c18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl shadow-black/40">
+    <div
+      id={id}
+      className="bg-[#080c18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl shadow-black/40"
+    >
       {/* 헤더 */}
-      <div className="px-6 pt-6 pb-5">
+      <div className="px-6 pt-5 pb-4">
         <div className="flex items-center gap-3 mb-1">
           <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0">
             <AlignLeft size={18} className="text-white" />
@@ -57,9 +63,9 @@ export default function StickyForm({ id }) {
       <div className="h-px bg-white/[0.06]" />
 
       {/* 폼 */}
-      <form onSubmit={handleSubmit} className="px-6 pt-5 pb-6 space-y-4">
+      <form onSubmit={handleSubmit} className="px-6 pt-4 pb-4 space-y-3">
         <div>
-          <label className="block text-sm text-slate-300 mb-1.5">
+          <label className="block text-sm text-slate-300 mb-1">
             {STICKY_FORM.fields.name.label}
             {STICKY_FORM.fields.name.required && <span className="text-blue-400 ml-0.5">*</span>}
           </label>
@@ -75,7 +81,7 @@ export default function StickyForm({ id }) {
         </div>
 
         <div>
-          <label className="block text-sm text-slate-300 mb-1.5">
+          <label className="block text-sm text-slate-300 mb-1">
             {STICKY_FORM.fields.phone.label}
             {STICKY_FORM.fields.phone.required && <span className="text-blue-400 ml-0.5">*</span>}
           </label>
@@ -90,22 +96,29 @@ export default function StickyForm({ id }) {
           />
         </div>
 
-        <div>
-          <label className="block text-sm text-slate-300 mb-1.5">{STICKY_FORM.fields.type.label}</label>
+        <div className="relative">
+          <label className="block text-sm text-slate-300 mb-1">{STICKY_FORM.fields.type.label}</label>
           <select
             name="type"
             value={form.type}
             onChange={handleChange}
-            className={inputClass}
+            className={`${inputClass} appearance-none pr-10`}
           >
             {STICKY_FORM.fields.type.options.map((opt) => (
-              <option key={opt} value={opt}>{opt}</option>
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
             ))}
           </select>
+
+          <ChevronDown
+            size={18}
+            className="absolute right-2 top-[70%] -translate-y-1/2 text-slate-300 pointer-events-none"
+          />
         </div>
 
         <div>
-          <label className="block text-sm text-slate-300 mb-1.5">{STICKY_FORM.fields.industry.label}</label>
+          <label className="block text-sm text-slate-300 mb-1">{STICKY_FORM.fields.industry.label}</label>
           <input
             type="text"
             name="industry"
@@ -117,18 +130,18 @@ export default function StickyForm({ id }) {
         </div>
 
         <div>
-          <label className="block text-sm text-slate-300 mb-1.5">{STICKY_FORM.fields.request.label}</label>
+          <label className="block text-sm text-slate-300 mb-1">{STICKY_FORM.fields.request.label}</label>
           <textarea
             name="request"
             value={form.request}
             onChange={handleChange}
             placeholder={STICKY_FORM.fields.request.placeholder}
-            rows={4}
+            rows={2}
             className={`${inputClass} resize-none`}
           />
         </div>
 
-        <label className="flex items-center gap-2.5 cursor-pointer pt-1">
+        <label className="flex items-center gap-2.5 cursor-pointer">
           <input
             type="checkbox"
             name="agree"
@@ -139,10 +152,7 @@ export default function StickyForm({ id }) {
           <span className="text-xs text-slate-400">{STICKY_FORM.fields.agree}</span>
         </label>
 
-        <button
-          type="submit"
-          className="w-full gradient-blue text-white font-bold py-3.5 rounded-xl text-sm mt-2"
-        >
+        <button type="submit" className="w-full gradient-blue text-white font-bold py-3 rounded-xl text-sm mt-1">
           {STICKY_FORM.submit}
         </button>
       </form>
