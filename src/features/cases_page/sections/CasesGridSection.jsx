@@ -17,11 +17,11 @@ function CaseCard({ item }) {
           {item.category}
         </span>
       </div>
-      <div className="p-4 flex items-center justify-between">
-        <h3 className="text-sm font-bold text-white">{item.title}</h3>
+      <div className="p-4 flex items-center justify-between gap-3">
+        <h3 className="min-w-0 truncate text-sm font-bold text-white">{item.title}</h3>
         <Link
           href={item.blogHref}
-          className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors whitespace-nowrap ml-2"
+          className="flex-shrink-0 text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors whitespace-nowrap"
         >
           자세히보기
         </Link>
@@ -45,7 +45,7 @@ export default function CasesGridSection() {
         </h1>
       </div>
 
-      <div className="relative grid grid-cols-4 gap-4 max-w-7xl mx-auto">
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
         {CASES_PAGE.cases.map((item) => (
           <CaseCard key={item.title} item={item} />
         ))}
